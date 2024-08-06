@@ -18,7 +18,7 @@ java {
 }
 
 application {
-    mainClass.set("org.example.DemoApplication")
+    mainClass.set("com.example.DemoApplication")
 }
 
 dependencies {

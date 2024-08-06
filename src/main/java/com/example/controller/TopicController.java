@@ -33,6 +33,18 @@ public class TopicController {
         return "redirect:/topics";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editTopic(@PathVariable Long id, Model model) {
+        model.addAttribute("topic", topicService.findById(id));
+        return "topics/editTopic";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateTopic(@Valid @ModelAttribute Topic topic) {
+        topicService.save(topic);
+        return "redirect:/topics";
+    }
+
     @GetMapping("/{id}/delete")
     public String deleteTopic(@PathVariable Long id) {
         topicService.delete(id);
