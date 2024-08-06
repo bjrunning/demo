@@ -1,16 +1,6 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/example
-    username: postgres
-    password: "c0mrade"
-    driver-class-name: org.postgresql.Driver
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-  jpa:
-    generate-ddl: true
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
   output:
     ansi:
       enabled: always
+  profiles:
+    default: development
