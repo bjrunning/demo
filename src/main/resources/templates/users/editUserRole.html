@@ -40,18 +40,33 @@
 </nav>
 <main class="flex-grow-1">
     <div class="container mt-4">
-        <h2 class="my-4">
-            <span th:text="${questionAnswer.question}"></span>
-        </h2>
-        <div class="card">
-            <div class="card-body bg-light">
-                <p class="lead" th:text="*{questionAnswer.answer}"></p>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="my-4 text-center">Update role user: <span th:text="${user.username}"></span></h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <form class="form-horizontal"
+                              th:action="@{/users/{userId}/editRole(userId=${user.id})}"
+                              method="post">
+                            <label class="form-label" for="role">Select a role:</label>
+                            <select id="role" name="role">
+                                <option value="USER">USER</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
+                            <div class="text-center mt-3">
+                                <button class="btn btn-dark" type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </main>
 <div class="text-center">
-    <a class="btn btn-dark" th:href="@{/topics/{id}/questions-answers(id=${questionAnswer.topic.id})}">Back</a>
+    <a class="btn btn-dark" th:href="@{/users}">Back</a>
 </div>
 <footer class="footer border-top py-3 mt-5 bg-light">
     <div class="container-xl">

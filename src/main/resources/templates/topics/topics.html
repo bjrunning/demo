@@ -23,8 +23,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link" th:href="@{/topics}">Topics</a>
+                <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="nav-link" th:href="@{/topics}">Topics</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
             </div>
+        </div>
+        <div class="navbar-nav float-end" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+        </div>
+        <div class="navbar-nav float-end" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="@{/register}">Register</a>
+        </div>
+        <div class="navbar-nav float-end" sec:authorize="isAuthenticated()">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
         </div>
     </div>
 </nav>
@@ -33,11 +43,11 @@
         <div class="row col-md-10">
             <h2 class="my-4">List Topics</h2>
         </div>
-        <table class="table table-bordered table-hover">
+        <table class="table">
             <thead class="table-dark">
             <tr>
-                <th>Name</th>
-                <th></th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +59,7 @@
                 </td>
                 <td>
                     <a class="btn btn-primary" th:href="@{/topics/{id}/edit(id=${topic.id})}">Edit</a>
-                    <a class="btn btn-danger" th:href="@{/topics/{id}/delete(id=${topic.id})}">Delete</a>
+                    <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger" th:href="@{/topics/{id}/delete(id=${topic.id})}">Delete</a>
                 </td>
             </tr>
             </tbody>

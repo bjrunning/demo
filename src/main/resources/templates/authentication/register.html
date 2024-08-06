@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preparing for an interview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous">
+    </script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Preparing for an interview</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+            </div>
+        </div>
+    </div>
+</nav>
+<main class="flex-grow-1">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="my-4 text-center">Registration Form</h2>
+                    </div>
+                    <div th:if="${param.success}">
+                        <div class="alert alert-info">
+                            You have successfully registered!
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form
+                                method="post"
+                                role="form"
+                                th:action="@{/register/save}"
+                                th:object="${userCreateDTO}">
+                            <div class="form-group mb-3">
+                                <input
+                                        class="form-control"
+                                        id="firstName"
+                                        name="firstName"
+                                        placeholder="Enter first name"
+                                        th:field="*{firstName}"
+                                        type="text"/>
+                                <p th:errors = "*{firstName}" class="text-danger"
+                                   th:if="${#fields.hasErrors('firstName')}"></p>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input
+                                        class="form-control"
+                                        id="lastName"
+                                        name="lastName"
+                                        placeholder="Enter last name"
+                                        th:field="*{lastName}"
+                                        type="text"/>
+                                <p th:errors = "*{lastName}" class="text-danger"
+                                   th:if="${#fields.hasErrors('lastName')}"></p>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input
+                                        class="form-control"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Enter email"
+                                        th:field="*{email}"
+                                        type="email"/>
+                                <p th:errors = "*{email}" class="text-danger"
+                                   th:if="${#fields.hasErrors('email')}"></p>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input
+                                        class="form-control"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Enter password"
+                                        th:field="*{password}"
+                                        type="password"/>
+                                <p th:errors = "*{password}" class="text-danger"
+                                   th:if="${#fields.hasErrors('password')}"></p>
+                            </div>
+                            <div class="text-center mb-3">
+                                <input type="checkbox" id="agree" name="agree" required />
+                                <label for="agree"><a th:href="@{/rules}">I accept the terms of the user agreement</a></label>
+                            </div>
+                            <div class="form-group text-center mb-3">
+                                <button class="btn btn-dark" type="submit">Register</button>
+                            </div>
+                            <div class="text-center">
+                                <span>Already registered? <a th:href="@{/login}">Login</a></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="text-center">
+    <a class="btn btn-dark" th:href="@{/}">Back</a>
+</div>
+<footer class="footer border-top py-3 mt-5 bg-light">
+    <div class="container-xl">
+        <div class="text-center">
+            created by
+            <a href="https://github.com/bjrunning" target="_blank">bjrunning</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

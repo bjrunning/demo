@@ -40,18 +40,48 @@
 </nav>
 <main class="flex-grow-1">
     <div class="container mt-4">
-        <h2 class="my-4">
-            <span th:text="${questionAnswer.question}"></span>
-        </h2>
-        <div class="card">
-            <div class="card-body bg-light">
-                <p class="lead" th:text="*{questionAnswer.answer}"></p>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="my-4 text-center">Update User</h2>
+                    </div>
+                    <div class="card-body">
+                        <form
+                                method="post"
+                                role="form"
+                                th:action="@{/users/{userId}/edit(userId=${user.id})}"
+                                th:object="${user}">
+                            <div class="form-group mb-3">
+                                <input
+                                        class="form-control"
+                                        id="firstName"
+                                        name="firstName"
+                                        placeholder="Enter first name"
+                                        th:field="*{firstName}"
+                                        type="text"/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input
+                                        class="form-control"
+                                        id="lastName"
+                                        name="lastName"
+                                        placeholder="Enter last name"
+                                        th:field="*{lastName}"
+                                        type="text"/>
+                            </div>
+                            <div class="form-group text-center mb-3">
+                                <button class="btn btn-dark" type="submit">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </main>
 <div class="text-center">
-    <a class="btn btn-dark" th:href="@{/topics/{id}/questions-answers(id=${questionAnswer.topic.id})}">Back</a>
+    <a class="btn btn-dark" th:href="@{/users}">Back</a>
 </div>
 <footer class="footer border-top py-3 mt-5 bg-light">
     <div class="container-xl">

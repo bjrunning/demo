@@ -20,6 +20,7 @@ public class QuestionAnswer {
 
     private String question;
 
+    @Column(columnDefinition = "TEXT")
     private String answer;
 
     @ManyToOne

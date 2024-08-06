@@ -40,18 +40,23 @@
 </nav>
 <main class="flex-grow-1">
     <div class="container mt-4">
-        <h2 class="my-4">
-            <span th:text="${questionAnswer.question}"></span>
-        </h2>
-        <div class="card">
-            <div class="card-body bg-light">
-                <p class="lead" th:text="*{questionAnswer.answer}"></p>
+        <div class="row col-md-10">
+            <h2 class="my-4">Profile</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p class="lead">Username: <span th:text="${user.username}"></span></p>
+                <p class="lead">Email: <span th:text="${user.email}"></span></p>
+                <p class="lead">Role: <span th:each="role : ${user.roles}" th:text="${role.name}"></span></p>
+                <div class="form-group mt-3">
+                    <a class="btn btn-dark" th:href="@{/users/{userId}/edit(userId=${user.id})}">Edit</a>
+                </div>
             </div>
         </div>
     </div>
 </main>
 <div class="text-center">
-    <a class="btn btn-dark" th:href="@{/topics/{id}/questions-answers(id=${questionAnswer.topic.id})}">Back</a>
+    <a class="btn btn-dark" th:href="@{/users}">Back</a>
 </div>
 <footer class="footer border-top py-3 mt-5 bg-light">
     <div class="container-xl">
