@@ -57,6 +57,7 @@ public class SecurityConfig {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/privacy_policy").permitAll()
                                 .requestMatchers("/rules").permitAll()
+                                .requestMatchers("/about").permitAll()
                                 .requestMatchers("/topics").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/topics/create").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/topics/{id}/questions-answers").hasAnyAuthority("ADMIN", "USER")

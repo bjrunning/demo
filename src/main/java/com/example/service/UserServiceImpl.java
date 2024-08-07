@@ -1,12 +1,13 @@
 package com.example.service;
 
-import com.example.dto.UserCreateDTO;
-import com.example.dto.UserDTO;
-import com.example.dto.UserUpdateDTO;
+import com.example.dto.user.UserCreateDTO;
+import com.example.dto.user.UserDTO;
+import com.example.dto.user.UserUpdateDTO;
 import com.example.model.Role;
 import com.example.model.User;
 import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
+import com.example.service.interfaces.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

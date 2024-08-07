@@ -1,10 +1,10 @@
 package com.example.controller;
 
-import com.example.dto.UserCreateDTO;
-import com.example.dto.UserDTO;
-import com.example.dto.UserUpdateDTO;
+import com.example.dto.user.UserCreateDTO;
+import com.example.dto.user.UserDTO;
+import com.example.dto.user.UserUpdateDTO;
 import com.example.model.User;
-import com.example.service.UserService;
+import com.example.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,7 +63,8 @@ public class UserController {
 
     @PostMapping("/{userId}/edit")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String editUser(@PathVariable Long userId, UserUpdateDTO userUpdateDTO) {
+    public String editUser(@PathVariable Long userId,
+                           @Valid @ModelAttribute("user") UserUpdateDTO userUpdateDTO) {
         userService.updateUser(userId, userUpdateDTO);
         return "redirect:/users";
     }

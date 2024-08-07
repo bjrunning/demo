@@ -1,8 +1,8 @@
 package com.example.controller;
 
-import com.example.dto.UserCreateDTO;
+import com.example.dto.user.UserCreateDTO;
 import com.example.model.User;
-import com.example.service.UserService;
+import com.example.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,8 +41,8 @@ public class AuthenticationController {
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
-                    "Уже существует аккаунт, " +
-                            "зарегистрированный с таким же адресом электронной почты");
+                    "Already exists an account, " +
+                            "registered with the same email address");
         }
 
         if (result.hasErrors()) {
@@ -51,7 +51,7 @@ public class AuthenticationController {
         }
 
         if (!"on".equals(agree)) {
-            model.addAttribute("error", "Вы должны согласиться с условиями.");
+            model.addAttribute("error", "You must agree to the terms");
             return "authentication/register";
         }
 

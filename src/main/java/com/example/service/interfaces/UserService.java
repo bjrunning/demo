@@ -1,8 +1,8 @@
-package com.example.service;
+package com.example.service.interfaces;
 
-import com.example.dto.UserCreateDTO;
-import com.example.dto.UserDTO;
-import com.example.dto.UserUpdateDTO;
+import com.example.dto.user.UserCreateDTO;
+import com.example.dto.user.UserDTO;
+import com.example.dto.user.UserUpdateDTO;
 import com.example.model.User;
 
 import java.util.List;

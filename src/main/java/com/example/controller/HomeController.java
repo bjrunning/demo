@@ -11,6 +11,11 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/about")
+    public String about() {
+        return "other/about";
+    }
+
     @GetMapping("/privacy_policy")
     public String privacyPolicy() {
         return "other/privacy_policy";

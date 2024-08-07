@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.model.QuestionAnswer;
 import com.example.model.Topic;
-import com.example.service.TopicService;
+import com.example.service.interfaces.TopicService;
 import com.example.service.QuestionAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

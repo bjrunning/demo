@@ -15,7 +15,7 @@
     </script>
 </head>
 <body class="d-flex flex-column min-vh-100">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">Preparing for an interview</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,7 @@
             <div class="navbar-nav">
                 <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" class="nav-link" th:href="@{/topics}">Topics</a>
                 <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" th:href="@{/users}">Users</a>
+                <a class="nav-link" th:href="@{/about}">About</a>
             </div>
         </div>
         <div class="navbar-nav float-end" sec:authorize="!isAuthenticated()">
@@ -49,7 +50,8 @@
                 <p class="lead">Email: <span th:text="${user.email}"></span></p>
                 <p class="lead">Role: <span th:each="role : ${user.roles}" th:text="${role.name}"></span></p>
                 <div class="form-group mt-3">
-                    <a class="btn btn-dark" th:href="@{/users/{userId}/edit(userId=${user.id})}">Edit</a>
+                    <a class="btn btn-primary" th:href="@{/users/{userId}/edit(userId=${user.id})}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{/users/{userId}/delete(userId=${user.id})}">Delete</a>
                 </div>
             </div>
         </div>
