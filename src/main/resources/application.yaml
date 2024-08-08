@@ -1,4 +1,14 @@
+---
+logging:
+  level:
+    root: WARN
+
 spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
   output:
     ansi:
       enabled: always
