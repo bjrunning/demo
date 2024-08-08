@@ -4,12 +4,14 @@ import com.example.dto.topic.TopicCreateDTO;
 import com.example.dto.topic.TopicDTO;
 import com.example.dto.topic.TopicUpdateDTO;
 import com.example.model.Topic;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TopicService {
 
-    List<TopicDTO> findAll();
+    Page<TopicDTO> findAll(Pageable pageable);
+
+    Page<TopicDTO> searchByTitle(String title, Pageable pageable);
 
     void save(TopicCreateDTO topicCreateDTO);
 

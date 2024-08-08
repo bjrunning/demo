@@ -4,6 +4,8 @@ import com.example.dto.user.UserCreateDTO;
 import com.example.dto.user.UserDTO;
 import com.example.dto.user.UserUpdateDTO;
 import com.example.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -15,7 +17,9 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    List<UserDTO> getAll();
+    Page<UserDTO> getAll(Pageable pageable);
+
+    Page<UserDTO> searchByUsername(String username, Pageable pageable);
 
     User getUserById(Long id);
 

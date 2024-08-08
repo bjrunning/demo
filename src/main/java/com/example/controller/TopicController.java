@@ -7,12 +7,13 @@ import com.example.model.Topic;
 import com.example.service.interfaces.TopicService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/topics")
@@ -22,11 +23,22 @@ public class TopicController {
     private TopicService topicService;
 
     @GetMapping()
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public String listTopics(Model model) {
-        List<TopicDTO> topics = topicService.findAll();
-        model.addAttribute("topics", topics);
-        return "topics/topics";
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public String listTopics(Model model, @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(required = false) String query) {
+        if (query != null && !query.isEmpty()) {
+            Pageable pageable = PageRequest.of(page, 6);
+            Page<TopicDTO> topics = topicService.searchByTitle(query, pageable);
+            model.addAttribute("topics", topics);
+            model.addAttribute("currentPage", page);
+            return "topics/topics";
+        } else {
+            Pageable pageable = PageRequest.of(page, 6);
+            Page<TopicDTO> topics = topicService.findAll(pageable);
+            model.addAttribute("topics", topics);
+            model.addAttribute("currentPage", page);
+            return "topics/topics";
+        }
     }
 
     @GetMapping("/create")

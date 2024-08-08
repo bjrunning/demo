@@ -11,6 +11,8 @@ import com.example.service.interfaces.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -136,11 +138,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAll() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map((user) -> mapToUserDTO(user))
-                .collect(Collectors.toList());
+    public Page<UserDTO> getAll(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users.map((user) -> mapToUserDTO(user));
+    }
+
+    @Override
+    public Page<UserDTO> searchByUsername(String username, Pageable pageable) {
+        Page<User> users = userRepository.findByUsernameContainingIgnoreCase(username, pageable);
+        return users.map((user) -> mapToUserDTO(user));
     }
 
     private UserDTO mapToUserDTO(User user){

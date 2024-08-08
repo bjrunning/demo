@@ -7,13 +7,14 @@ import com.example.model.User;
 import com.example.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -23,11 +24,22 @@ public class UserController {
     private UserService userService;
 
     @GetMapping()
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String allUsers(Model model) {
-        List<UserDTO> users = userService.getAll();
-        model.addAttribute("users", users);
-        return "users/users";
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public String allUsers(Model model, @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(required = false) String query) {
+        if (query != null && !query.isEmpty()) {
+            Pageable pageable = PageRequest.of(page, 6);
+            Page<UserDTO> users = userService.searchByUsername(query, pageable);
+            model.addAttribute("users", users);
+            model.addAttribute("currentPage", page);
+            return "users/users";
+        } else {
+            Pageable pageable = PageRequest.of(page, 6);
+            Page<UserDTO> users = userService.getAll(pageable);
+            model.addAttribute("users", users);
+            model.addAttribute("currentPage", page);
+            return "users/users";
+        }
     }
 
     @GetMapping("/{userId}")

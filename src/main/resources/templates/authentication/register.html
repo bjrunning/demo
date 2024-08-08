@@ -22,10 +22,35 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav">
-                <a class="nav-link" th:href="@{/login}">Login</a>
-                <a class="nav-link" th:href="@{/about}">About</a>
-            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span sec:authorize="isAuthenticated()">
+                    Welcome <span th:text="${#authentication.name}"></span>!
+                </span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li sec:authorize="!isAuthenticated()">
+                            <a class="dropdown-item"
+                               th:href="@{/login}"
+                               onmouseover="this.style.backgroundColor='#4285f4'"
+                               onmouseout="this.style.backgroundColor='transparent'">Login</a>
+                        </li>
+                        <li sec:authorize="!isAuthenticated()">
+                            <a class="dropdown-item"
+                               th:href="@{/register}"
+                               onmouseover="this.style.backgroundColor='#4285f4'"
+                               onmouseout="this.style.backgroundColor='transparent'">Register</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               th:href="@{/about}"
+                               onmouseover="this.style.backgroundColor='#4285f4'"
+                               onmouseout="this.style.backgroundColor='transparent'">About</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -97,6 +122,7 @@
                                 <label for="agree"><a th:href="@{/rules}">I accept the terms of the user agreement</a></label>
                             </div>
                             <div class="form-group text-center mb-3">
+                                <a class="btn btn-dark" th:href="@{/}">Back</a>
                                 <button class="btn btn-dark" type="submit">Register</button>
                             </div>
                             <div class="text-center">
@@ -109,9 +135,6 @@
         </div>
     </div>
 </main>
-<div class="text-center">
-    <a class="btn btn-dark" th:href="@{/}">Back</a>
-</div>
 <footer class="footer border-top py-3 mt-5 bg-light">
     <div class="container-xl">
         <div class="text-center">

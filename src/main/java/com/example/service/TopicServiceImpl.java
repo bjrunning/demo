@@ -7,10 +7,9 @@ import com.example.model.Topic;
 import com.example.repository.TopicRepository;
 import com.example.service.interfaces.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TopicServiceImpl implements TopicService {
@@ -19,11 +18,15 @@ public class TopicServiceImpl implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public List<TopicDTO> findAll() {
-        List<Topic> topics = topicRepository.findAll();
-        return topics.stream()
-                .map((topic) -> mapToTopicDTO(topic))
-                .collect(Collectors.toList());
+    public Page<TopicDTO> findAll(Pageable pageable) {
+        Page<Topic> topics = topicRepository.findAll(pageable);
+        return topics.map((topic) -> mapToTopicDTO(topic));
+    }
+
+    @Override
+    public Page<TopicDTO> searchByTitle(String title, Pageable pageable) {
+        Page<Topic> topics = topicRepository.findByTitleContainingIgnoreCase(title, pageable);
+        return topics.map((topic) -> mapToTopicDTO(topic));
     }
 
     @Override
